@@ -276,6 +276,37 @@ consider enabling the commented-out `projects` block for cross-browser runs.
 
 ---
 
+## Continuous integration
+
+Workflow: [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — **E2E Tests**.
+
+**Triggers:** push to `main`, pull request targeting `main`, and manual
+`workflow_dispatch`.
+
+**Job** (`Run Playwright BDD tests`, `ubuntu-latest`, 30-min timeout):
+
+| Step | Command |
+| --- | --- |
+| Checkout | `actions/checkout@v4` |
+| Node.js | `actions/setup-node@v4` — Node 20, npm cache |
+| Install deps | `npm ci` |
+| Install browsers | `npx playwright install --with-deps chromium` |
+| Run tests | `xvfb-run -a npm run test:bdd` — config runs headed, so CI needs a virtual display |
+| Build report | `cp reports/cucumber-json/report.json reports/report.json` then `npm run test:report` |
+| Upload report | `actions/upload-artifact@v4` → **`cucumber-html-report`** (`reports/index.html`) |
+| Upload PW report | `actions/upload-artifact@v4` → **`playwright-report`** (`reports/playwright-html/`) |
+
+The report/upload steps use `if: ${{ !cancelled() }}` so artifacts are still
+published when tests fail. Artifacts are kept for 30 days — download them from the
+run's summary page.
+
+> The `cucumber-html-report` artifact currently uploads only `reports/index.html`.
+> That page needs its sibling `reports/assets/` and `reports/features/` folders to
+> render — point the artifact `path:` at `reports/` (or list the extra paths) to
+> get a browsable report.
+
+---
+
 ## Writing a new test
 
 ### 1. Add a scenario — `features/<name>.feature`
