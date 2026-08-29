@@ -1,0 +1,38 @@
+{
+  "name": "playwright-typescript-bdd-web-ui-automation",
+  "version": "1.0.0",
+  "description": "A Playwright-based UI test automation framework built for reliable, maintainable and scalable end-to-end testing across modern web applications.",
+  "main": "index.js",
+  "scripts": {
+    "test:smoke": "npx cucumber-js --tags @smoke",
+    "test:report": "ts-node generate-multiple-html-reports.ts",
+    "test:bdd": "bddgen && playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QaSquadTech/playwright-typescript-bdd-web-ui-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/QaSquadTech/playwright-typescript-bdd-web-ui-automation/issues"
+  },
+  "homepage": "https://github.com/QaSquadTech/playwright-typescript-bdd-web-ui-automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "cucumber-html-reporter": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "js-yaml": "^5.3.0",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "ts-node": "^10.9.2",
+    "typescript": "5.3.3",
+    "winston": "^3.19.0",
+    "yaml": "^2.9.0"
+  },
+  "dependencies": {
+    "playwright-bdd": "^9.2.0"
+  }
+}
