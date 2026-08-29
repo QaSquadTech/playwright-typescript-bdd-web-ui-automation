@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-html-report
-          path: reports/index.html
+          path: reports/
           retention-days: 30
 
       - name: Upload Playwright report
